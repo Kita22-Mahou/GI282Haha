@@ -36,10 +36,6 @@ public class BoxSpawner : MonoBehaviour
         CheckDrop();
     }
 
-    // ========================================
-    // Spawn Box
-    // ========================================
-
     void SpawnBox()
     {
         Vector3 spawnPosition =
@@ -63,10 +59,6 @@ public class BoxSpawner : MonoBehaviour
         moveDirection = 1f;
         canMove = true;
     }
-
-    // ========================================
-    // Box เคลื่อนซ้าย-ขวาเอง
-    // ========================================
 
     void MoveBoxAutomatically()
     {
@@ -103,10 +95,6 @@ public class BoxSpawner : MonoBehaviour
             position;
     }
 
-    // ========================================
-    // Spacebar = Drop
-    // ========================================
-
     void CheckDrop()
     {
         if (Keyboard.current.spaceKey.wasPressedThisFrame)
@@ -115,16 +103,11 @@ public class BoxSpawner : MonoBehaviour
         }
     }
 
-    // ========================================
-    // Drop Box
-    // ========================================
-
     void DropBox()
     {
         if (currentBox == null)
             return;
 
-        // หยุดการเคลื่อนที่
         canMove = false;
 
         Rigidbody2D rb =
@@ -132,13 +115,12 @@ public class BoxSpawner : MonoBehaviour
 
         if (rb != null)
         {
-            // เปิด Physics
+
             rb.simulated = true;
         }
 
         currentBox = null;
 
-        // รอก่อนสร้างกล่องใหม่
         Invoke(
             nameof(SpawnBox),
             0.1f

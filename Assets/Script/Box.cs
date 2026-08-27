@@ -55,13 +55,13 @@ public class Box : MonoBehaviour
                 1f
             );
 
-        // ปรับน้ำหนัก
+        // น้ำหนัก
         if (rb != null)
         {
             rb.mass = data.mass;
         }
 
-        // เปลี่ยน Sprite
+        
 if (spriteRenderer != null)
 {
     spriteRenderer.color = data.color;
@@ -101,10 +101,6 @@ if (spriteRenderer != null)
     isMerging = true;
     other.isMerging = true;
 
-    // =========================
-    // เพิ่ม Score
-    // =========================
-
     if (GameManager.Instance != null)
     {
         BoxConfig.LevelData data =
@@ -120,19 +116,12 @@ if (spriteRenderer != null)
         Debug.LogError("GameManager.Instance is NULL!");
     }
 
-    // =========================
-    // ตำแหน่ง Merge
-    // =========================
 
     Vector3 mergePosition =
         (transform.position +
          other.transform.position) / 2f;
 
     int nextLevel = level + 1;
-
-    // =========================
-    // สร้างกล่องใหม่
-    // =========================
 
     GameObject newBoxObject =
         Instantiate(
@@ -149,10 +138,6 @@ if (spriteRenderer != null)
 
     newBox.ApplyLevelData();
 
-    // =========================
-    // Reset Physics
-    // =========================
-
     Rigidbody2D newRb =
         newBox.GetComponent<Rigidbody2D>();
 
@@ -161,10 +146,6 @@ if (spriteRenderer != null)
         newRb.velocity = Vector2.zero;
         newRb.angularVelocity = 0f;
     }
-
-    // =========================
-    // ลบกล่องเก่า
-    // =========================
 
     Destroy(gameObject);
     Destroy(other.gameObject);
