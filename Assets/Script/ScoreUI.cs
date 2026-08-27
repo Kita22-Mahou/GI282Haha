@@ -3,29 +3,22 @@ using TMPro;
 
 public class ScoreUI : MonoBehaviour
 {
-    public TextMeshProUGUI scoreText;
+    [SerializeField] private TMP_Text scoreText;
 
-    void Start()
+    private void Start()
     {
-        UpdateScore();
+        if (GameManager.Instance != null)
+            Refresh(GameManager.Instance.Score);
     }
 
-    public void UpdateScore()
+    public void Refresh(int score)
     {
-        if (GameManager.Instance == null)
-        {
-            Debug.LogWarning("GameManager.Instance is NULL");
-            return;
-        }
-
         if (scoreText == null)
         {
-            Debug.LogWarning("Score Text is NOT assigned!");
+            Debug.LogWarning("ScoreUI: Assign Score Text in the Inspector.");
             return;
         }
 
-        scoreText.text =
-            "SCORE " +
-            GameManager.Instance.score.ToString();
+        scoreText.text = score.ToString("N0");
     }
 }

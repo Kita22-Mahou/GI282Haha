@@ -2,93 +2,61 @@ using UnityEngine;
 
 public class Box : MonoBehaviour
 {
-    [Header("Box")]
-    public int level = 1;
+    [Header("Box Data")]
+    [SerializeField] private int level = 1;
 
-    [Header("Configuration")]
-    public BoxConfig config;
+    [Header("References")]
+    public BoxDatabase database;
 
-    private bool isMerging = false;
-
-    private SpriteRenderer spriteRenderer;
     private Rigidbody2D rb;
-    private BoxCollider2D boxCollider;
+    private bool isMerging;
+    private float mergeLockTimer;
 
-    void Awake()
+    public int Level => level;
+
+    private void Awake()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
         rb = GetComponent<Rigidbody2D>();
-        boxCollider = GetComponent<BoxCollider2D>();
     }
 
-    void Start()
+    private void Start()
     {
-        ApplyLevelData();
+        if (rb == null)
+            rb = GetComponent<Rigidbody2D>();
+
+        if (database == null)
+            database = FindFirstObjectByType<BoxDatabase>();
+
+        mergeLockTimer = 0.08f;
+    }
+
+    private void Update()
+    {
+        if (mergeLockTimer > 0f)
+            mergeLockTimer -= Time.deltaTime;
     }
 
     public void SetLevel(int newLevel)
     {
-        level = newLevel;
-
-        ApplyLevelData();
+        level = Mathf.Clamp(newLevel, 1, 8);
     }
 
-    void ApplyLevelData()
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (config == null)
-        {
-            Debug.LogWarning("BoxConfig is missing!");
-            return;
-        }
-
-        BoxConfig.LevelData data =
-            config.GetLevel(level);
-
-        if (data == null)
+        if (isMerging || mergeLockTimer > 0f)
             return;
 
-        // ปรับขนาด
-        transform.localScale =
-            new Vector3(
-                data.size.x,
-                data.size.y,
-                1f
-            );
+        Box other = collision.gameObject.GetComponent<Box>();
 
-        // น้ำหนัก
-        if (rb != null)
-        {
-            rb.mass = data.mass;
-        }
-
-        
-if (spriteRenderer != null)
-{
-    spriteRenderer.color = data.color;
-}
-    }
-
-    private void OnCollisionEnter2D(
-        Collision2D collision
-    )
-    {
-        if (isMerging)
+        if (other == null || other == this)
             return;
 
-        Box other =
-            collision.gameObject.GetComponent<Box>();
-
-        if (other == null)
+        if (other.isMerging || other.mergeLockTimer > 0f)
             return;
 
-        if (other.isMerging)
-            return;
-
-        // ต้อง Level เดียวกัน
         if (level != other.level)
             return;
 
-        // Level 8 เป็น Level สูงสุด
         if (level >= 8)
             return;
 
@@ -96,58 +64,55 @@ if (spriteRenderer != null)
     }
 
     private void Merge(Box other)
-{
-    // ป้องกัน Merge ซ้ำ
-    isMerging = true;
-    other.isMerging = true;
-
-    if (GameManager.Instance != null)
     {
-        BoxConfig.LevelData data =
-            config.GetLevel(level);
+        isMerging = true;
+        other.isMerging = true;
 
-        if (data != null)
+        Vector3 mergePosition =
+            (transform.position + other.transform.position) * 0.5f;
+
+        int nextLevel = level + 1;
+
+        if (database == null)
+            database = FindFirstObjectByType<BoxDatabase>();
+
+        GameObject nextPrefab = database != null
+            ? database.GetPrefab(nextLevel)
+            : null;
+
+        if (nextPrefab == null)
         {
-            GameManager.Instance.AddScore(data.score);
+            Debug.LogError($"Box: Missing prefab for Level {nextLevel}.");
+            isMerging = false;
+            other.isMerging = false;
+            return;
         }
-    }
-    else
-    {
-        Debug.LogError("GameManager.Instance is NULL!");
-    }
 
-
-    Vector3 mergePosition =
-        (transform.position +
-         other.transform.position) / 2f;
-
-    int nextLevel = level + 1;
-
-    GameObject newBoxObject =
-        Instantiate(
-            gameObject,
+        GameObject newBoxObject = Instantiate(
+            nextPrefab,
             mergePosition,
             Quaternion.identity
         );
 
-    Box newBox =
-        newBoxObject.GetComponent<Box>();
+        Box newBox = newBoxObject.GetComponent<Box>();
+        if (newBox != null)
+        {
+            newBox.database = database;
+            newBox.SetLevel(nextLevel);
+        }
 
-    newBox.level = nextLevel;
-    newBox.config = config;
+        Rigidbody2D newRb = newBoxObject.GetComponent<Rigidbody2D>();
+        if (newRb != null)
+        {
+            newRb.simulated = true;
+            newRb.velocity = Vector2.zero;
+            newRb.angularVelocity = 0f;
+        }
 
-    newBox.ApplyLevelData();
+        if (GameManager.Instance != null)
+            GameManager.Instance.AddScore(level);
 
-    Rigidbody2D newRb =
-        newBox.GetComponent<Rigidbody2D>();
-
-    if (newRb != null)
-    {
-        newRb.velocity = Vector2.zero;
-        newRb.angularVelocity = 0f;
+        Destroy(gameObject);
+        Destroy(other.gameObject);
     }
-
-    Destroy(gameObject);
-    Destroy(other.gameObject);
-}
 }

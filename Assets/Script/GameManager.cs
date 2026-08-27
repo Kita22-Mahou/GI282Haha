@@ -2,57 +2,49 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance;
+    public static GameManager Instance { get; private set; }
 
     [Header("Score")]
-    public int score = 0;
+    [SerializeField] private int score;
+    [SerializeField] private ScoreUI scoreUI;
 
-    public ScoreUI scoreUI;
+    public int Score => score;
 
     private void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
+            return;
         }
+
+        Instance = this;
     }
 
     private void Start()
     {
-        UpdateScoreUI();
-
-        Debug.Log("GameManager Ready!");
+        RefreshScoreUI();
     }
 
     public void AddScore(int amount)
     {
+        if (amount < 0)
+            return;
+
         score += amount;
-
-        Debug.Log(
-            "ADD SCORE: +" +
-            amount +
-            " | TOTAL: " +
-            score
-        );
-
-        UpdateScoreUI();
+        RefreshScoreUI();
+        Debug.Log($"Score +{amount} = {score}");
     }
 
-    private void UpdateScoreUI()
+    public void ResetScore()
     {
-        if (scoreUI == null)
-        {
-            Debug.LogWarning(
-                "ScoreUI is NOT connected!"
-            );
+        score = 0;
+        RefreshScoreUI();
+    }
 
-            return;
-        }
-
-        scoreUI.UpdateScore();
+    private void RefreshScoreUI()
+    {
+        if (scoreUI != null)
+            scoreUI.Refresh(score);
     }
 }
