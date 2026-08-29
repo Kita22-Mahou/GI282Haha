@@ -4,35 +4,46 @@ using UnityEngine.InputSystem;
 public class BoxSpawner : MonoBehaviour
 {
     [Header("References")]
-    public BoxDatabase database;
-    public BoxQueue boxQueue;
-    public NextBoxUI nextBoxUI;
+    [SerializeField] private BoxDatabase database;
+    [SerializeField] private BoxQueue boxQueue;
+    [SerializeField] private NextBoxUI nextBoxUI;
 
     [Header("Spawn Area")]
-    public float minX = -2.5f;
-    public float maxX = 2.5f;
-    public float spawnY = 5.5f;
+    [SerializeField] private float minX = -2.5f;
+    [SerializeField] private float maxX = 2.5f;
+    [SerializeField] private float spawnY = 5.5f;
 
     [Header("Movement")]
-    public float moveSpeed = 2.5f;
+    [SerializeField] private float moveSpeed = 2.5f;
 
     [Header("Timing")]
-    [Min(0f)] public float nextSpawnDelay = 0.4f;
+    [SerializeField] private float nextSpawnDelay = 0.4f;
 
     private GameObject currentBox;
     private bool canMove;
-    private bool spawnScheduled;
+    private float moveDirection = 1f;
 
     private void Start()
     {
+        if (database == null)
+            database =
+                FindFirstObjectByType<BoxDatabase>();
+
+        if (boxQueue == null)
+            boxQueue =
+                FindFirstObjectByType<BoxQueue>();
+
         if (database == null || boxQueue == null)
         {
-            Debug.LogError("BoxSpawner: Assign Database and Box Queue in the Inspector.");
+            Debug.LogError(
+                "BoxSpawner: Database or BoxQueue missing."
+            );
+
             enabled = false;
             return;
         }
 
-        SpawnBox();
+        SpawnCurrentBox();
     }
 
     private void Update()
@@ -41,12 +52,39 @@ public class BoxSpawner : MonoBehaviour
             return;
 
         if (canMove)
-            MoveBoxAutomatically();
+            MoveBox();
 
-        CheckDropInput();
+        CheckDrop();
     }
 
-    private void CheckDropInput()
+    private void MoveBox()
+    {
+        Vector3 pos =
+            currentBox.transform.position;
+
+        pos.x +=
+            moveDirection *
+            moveSpeed *
+            Time.deltaTime;
+
+        if (pos.x >= maxX)
+        {
+            pos.x = maxX;
+            moveDirection = -1f;
+        }
+        else if (pos.x <= minX)
+        {
+            pos.x = minX;
+            moveDirection = 1f;
+        }
+
+        pos.y = spawnY;
+
+        currentBox.transform.position =
+            pos;
+    }
+
+    private void CheckDrop()
     {
         if (Keyboard.current != null &&
             Keyboard.current.spaceKey.wasPressedThisFrame)
@@ -55,75 +93,78 @@ public class BoxSpawner : MonoBehaviour
         }
     }
 
-    private void MoveBoxAutomatically()
+    // =========================================
+    // Spawn CURRENT
+    // =========================================
+
+    private void SpawnCurrentBox()
     {
-        Vector3 position = currentBox.transform.position;
+        int index =
+            boxQueue.GetCurrentIndex();
 
-        position.x += moveDirection * moveSpeed * Time.deltaTime;
+        if (index < 0)
+            return;
 
-        if (position.x >= maxX)
-        {
-            position.x = maxX;
-            moveDirection = -1f;
-        }
-        else if (position.x <= minX)
-        {
-            position.x = minX;
-            moveDirection = 1f;
-        }
-
-        position.y = spawnY;
-        currentBox.transform.position = position;
-    }
-
-    private float moveDirection = 1f;
-
-    private void SpawnBox()
-    {
-        spawnScheduled = false;
-
-        int level = boxQueue.ConsumeNextLevel();
-        GameObject prefab = database.GetPrefab(level);
+        GameObject prefab =
+            database.GetPrefabByIndex(index);
 
         if (prefab == null)
         {
-            Debug.LogError($"BoxSpawner: No prefab assigned for Level {level}.");
+            Debug.LogError(
+                $"BoxSpawner: Prefab index {index} is missing."
+            );
+
             return;
         }
 
-        currentBox = Instantiate(
-            prefab,
-            new Vector3(0f, spawnY, 0f),
-            Quaternion.identity
-        );
+        currentBox =
+            Instantiate(
+                prefab,
+                new Vector3(
+                    0f,
+                    spawnY,
+                    0f
+                ),
+                Quaternion.identity
+            );
 
-        Box box = currentBox.GetComponent<Box>();
+        Box box =
+            currentBox.GetComponent<Box>();
+
         if (box != null)
-            box.SetLevel(level);
+            box.database = database;
 
-        Rigidbody2D rb = currentBox.GetComponent<Rigidbody2D>();
+        Rigidbody2D rb =
+            currentBox.GetComponent<Rigidbody2D>();
+
         if (rb != null)
         {
             rb.simulated = false;
-            rb.velocity = Vector2.zero;
+            rb.linearVelocity = Vector2.zero;
             rb.angularVelocity = 0f;
         }
 
         moveDirection = 1f;
         canMove = true;
 
-        if (nextBoxUI != null)
-            nextBoxUI.Refresh(boxQueue, database);
+        RefreshNextUI();
     }
+
+    // =========================================
+    // SPACE = DROP
+    // =========================================
 
     public void DropBox()
     {
-        if (currentBox == null || !canMove)
+        if (currentBox == null ||
+            !canMove)
             return;
 
         canMove = false;
 
-        Rigidbody2D rb = currentBox.GetComponent<Rigidbody2D>();
+        Rigidbody2D rb =
+            currentBox.GetComponent<Rigidbody2D>();
+
         if (rb != null)
         {
             rb.simulated = true;
@@ -131,19 +172,32 @@ public class BoxSpawner : MonoBehaviour
 
         currentBox = null;
 
-        if (!spawnScheduled)
-        {
-            spawnScheduled = true;
-            Invoke(nameof(SpawnBox), nextSpawnDelay);
-        }
+        // สำคัญ:
+        // ยังไม่เลื่อน Queue ตอนนี้
+        // รอให้ Spawn ตัวต่อไป
+        Invoke(
+            nameof(SpawnNextBox),
+            nextSpawnDelay
+        );
     }
 
-    public int GetCurrentLevel()
+    private void SpawnNextBox()
     {
-        if (currentBox == null)
-            return 0;
+        // Current เก่าจบแล้ว
+        // ตอนนี้ค่อยเลื่อน Queue
+        boxQueue.AdvanceQueue();
 
-        Box box = currentBox.GetComponent<Box>();
-        return box != null ? box.Level : 0;
+        SpawnCurrentBox();
+    }
+
+    private void RefreshNextUI()
+    {
+        if (nextBoxUI != null)
+        {
+            nextBoxUI.Refresh(
+                boxQueue,
+                database
+            );
+        }
     }
 }

@@ -4,73 +4,99 @@ using UnityEngine.UI;
 
 public class NextBoxUI : MonoBehaviour
 {
-    [Header("UI Slots")]
-    [Tooltip("Put the Image components in order: next, second-next, third-next...")]
-    [SerializeField] private Image[] previewImages;
+    [Header("NEXT")]
+    [SerializeField]
+    private Image nextImage;
 
-    [Header("Layout")]
-    [SerializeField] private float previewSize = 90f;
+    [Header("UPCOMING")]
+    [SerializeField]
+    private Image[] upcomingImages;
 
-    public void Refresh(BoxQueue queue, BoxDatabase database)
+    public void Refresh(
+        BoxQueue queue,
+        BoxDatabase database
+    )
     {
-        if (queue == null || database == null)
+        if (queue == null ||
+            database == null)
             return;
 
-        List<int> levels = queue.GetPreviewLevels();
+        // =====================================
+        // NEXT
+        // =====================================
 
-        for (int i = 0; i < previewImages.Length; i++)
+        SetImage(
+            nextImage,
+            queue.GetNextIndex(),
+            database
+        );
+
+        // =====================================
+        // UPCOMING
+        // =====================================
+
+        List<int> upcoming =
+            queue.GetUpcomingIndices();
+
+        // ปิดทั้งหมดก่อน
+        for (int i = 0;
+             i < upcomingImages.Length;
+             i++)
         {
-            Image image = previewImages[i];
-
-            if (image == null)
+            if (upcomingImages[i] == null)
                 continue;
 
-            if (i >= levels.Count)
-            {
-                image.enabled = false;
-                continue;
-            }
-
-            int level = levels[i];
-            GameObject prefab = database.GetPrefab(level);
-
-            if (prefab == null)
-            {
-                image.enabled = false;
-                continue;
-            }
-
-            SpriteRenderer spriteRenderer =
-                prefab.GetComponent<SpriteRenderer>();
-
-            Box box = prefab.GetComponent<Box>();
-
-            image.enabled = true;
-
-            if (spriteRenderer != null)
-            {
-                image.sprite = spriteRenderer.sprite;
-                image.color = spriteRenderer.color;
-            }
-            else
-            {
-                image.sprite = null;
-                image.color = Color.white;
-            }
-
-            float scale = 1f;
-
-            if (box != null)
-            {
-                // Preview size follows each prefab's world scale.
-                scale = Mathf.Max(
-                    prefab.transform.localScale.x,
-                    prefab.transform.localScale.y
-                );
-            }
-
-            RectTransform rect = image.rectTransform;
-            rect.sizeDelta = Vector2.one * previewSize * scale;
+            upcomingImages[i].enabled = false;
+            upcomingImages[i].sprite = null;
         }
+
+        // ใส่ Queue จริง
+        for (
+            int i = 0;
+            i < upcoming.Count &&
+            i < upcomingImages.Length;
+            i++
+        )
+        {
+            SetImage(
+                upcomingImages[i],
+                upcoming[i],
+                database
+            );
+        }
+    }
+
+    private void SetImage(
+        Image image,
+        int index,
+        BoxDatabase database
+    )
+    {
+        if (image == null)
+            return;
+
+        image.enabled = false;
+        image.sprite = null;
+
+        if (index < 0)
+            return;
+
+        GameObject prefab =
+            database.GetPrefabByIndex(index);
+
+        if (prefab == null)
+            return;
+
+        SpriteRenderer sr =
+            prefab.GetComponent<SpriteRenderer>();
+
+        if (sr == null ||
+            sr.sprite == null)
+            return;
+
+        image.sprite = sr.sprite;
+        image.color = sr.color;
+        image.preserveAspect = true;
+        image.enabled = true;
     }
 }

@@ -3,16 +3,21 @@ using UnityEngine;
 public class Box : MonoBehaviour
 {
     [Header("Box Data")]
-    [SerializeField] private int level = 1;
+    [SerializeField]
+    private int tier = 1;
+
+    [SerializeField]
+    private string variant = "A";
 
     [Header("References")]
     public BoxDatabase database;
 
     private Rigidbody2D rb;
-    private bool isMerging;
+    private bool isMerging = false;
     private float mergeLockTimer;
 
-    public int Level => level;
+    public int Tier => tier;
+    public string Variant => variant;
 
     private void Awake()
     {
@@ -21,9 +26,6 @@ public class Box : MonoBehaviour
 
     private void Start()
     {
-        if (rb == null)
-            rb = GetComponent<Rigidbody2D>();
-
         if (database == null)
             database = FindFirstObjectByType<BoxDatabase>();
 
@@ -36,32 +38,72 @@ public class Box : MonoBehaviour
             mergeLockTimer -= Time.deltaTime;
     }
 
-    public void SetLevel(int newLevel)
+    // =========================================
+    // ตั้งค่า Box
+    // =========================================
+
+    public void SetBoxData(
+        int newTier,
+        string newVariant
+    )
     {
-        level = Mathf.Clamp(newLevel, 1, 8);
+        tier = Mathf.Clamp(
+            newTier,
+            1,
+            6
+        );
+
+        variant =
+            string.IsNullOrWhiteSpace(newVariant)
+                ? "A"
+                : newVariant.Trim().ToUpperInvariant();
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    // =========================================
+    // Collision
+    // =========================================
+
+    private void OnCollisionEnter2D(
+        Collision2D collision
+    )
     {
-        if (isMerging || mergeLockTimer > 0f)
+        if (isMerging)
             return;
 
-        Box other = collision.gameObject.GetComponent<Box>();
-
-        if (other == null || other == this)
+        if (mergeLockTimer > 0f)
             return;
 
-        if (other.isMerging || other.mergeLockTimer > 0f)
+        Box other =
+            collision.gameObject.GetComponent<Box>();
+
+        if (other == null ||
+            other == this)
             return;
 
-        if (level != other.level)
+        if (other.isMerging)
             return;
 
-        if (level >= 8)
+        if (other.mergeLockTimer > 0f)
+            return;
+
+        // ต้อง Tier เดียวกัน
+        if (tier != other.tier)
+            return;
+
+        // ต้อง Variant เดียวกัน
+        if (variant != other.variant)
+            return;
+
+        // Tier 6 สูงสุด
+        if (tier >= 6)
             return;
 
         Merge(other);
     }
+
+    // =========================================
+    // Merge
+    // =========================================
 
     private void Merge(Box other)
     {
@@ -69,48 +111,85 @@ public class Box : MonoBehaviour
         other.isMerging = true;
 
         Vector3 mergePosition =
-            (transform.position + other.transform.position) * 0.5f;
+            (
+                transform.position +
+                other.transform.position
+            ) * 0.5f;
 
-        int nextLevel = level + 1;
+        int nextTier =
+            tier + 1;
+
+        string nextVariant =
+            variant;
 
         if (database == null)
-            database = FindFirstObjectByType<BoxDatabase>();
+            database =
+                FindFirstObjectByType<BoxDatabase>();
 
-        GameObject nextPrefab = database != null
-            ? database.GetPrefab(nextLevel)
-            : null;
-
-        if (nextPrefab == null)
+        if (database == null)
         {
-            Debug.LogError($"Box: Missing prefab for Level {nextLevel}.");
-            isMerging = false;
-            other.isMerging = false;
+            Debug.LogError(
+                "Box: BoxDatabase not found."
+            );
+
             return;
         }
 
-        GameObject newBoxObject = Instantiate(
-            nextPrefab,
-            mergePosition,
-            Quaternion.identity
-        );
+        GameObject nextPrefab =
+            database.GetPrefab(
+                nextTier,
+                nextVariant
+            );
 
-        Box newBox = newBoxObject.GetComponent<Box>();
+        if (nextPrefab == null)
+        {
+            Debug.LogError(
+                $"Box: Missing prefab for Tier {nextTier}, Variant {nextVariant}."
+            );
+
+            isMerging = false;
+            other.isMerging = false;
+
+            return;
+        }
+
+        GameObject newBoxObject =
+            Instantiate(
+                nextPrefab,
+                mergePosition,
+                Quaternion.identity
+            );
+
+        Box newBox =
+            newBoxObject.GetComponent<Box>();
+
         if (newBox != null)
         {
             newBox.database = database;
-            newBox.SetLevel(nextLevel);
+
+            newBox.SetBoxData(
+                nextTier,
+                nextVariant
+            );
         }
 
-        Rigidbody2D newRb = newBoxObject.GetComponent<Rigidbody2D>();
+        Rigidbody2D newRb =
+            newBoxObject.GetComponent<Rigidbody2D>();
+
         if (newRb != null)
         {
             newRb.simulated = true;
-            newRb.velocity = Vector2.zero;
+            newRb.linearVelocity = Vector2.zero;
             newRb.angularVelocity = 0f;
         }
 
+        // Score
         if (GameManager.Instance != null)
-            GameManager.Instance.AddScore(level);
+        {
+            GameManager.Instance.AddScore(
+                tier
+            );
+        }
 
         Destroy(gameObject);
         Destroy(other.gameObject);

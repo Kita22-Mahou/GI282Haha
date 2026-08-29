@@ -119,7 +119,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 520a1ed0fede6cc4490aef3ca16daa0a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Box
-  level: 1
+  tier: 3
+  variant: A
   database: {fileID: 0}
 --- !u!50 &3635470670427933523
 Rigidbody2D:
