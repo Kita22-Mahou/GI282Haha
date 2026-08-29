@@ -1,0 +1,237 @@
+fileFormatVersion: 2
+guid: 28e1bdaa82a835549b7db74d06f07c00
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1451011159848278836
+    second: Item_Christmas Tree_0
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: 0.708
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Item_Christmas Tree_0
+      rect:
+        serializedVersion: 2
+        x: 59
+        y: 10
+        width: 139
+        height: 230
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cc4ad14b909fcdbe0800000000000000
+      internalID: -1451011159848278836
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape:
+    - - {x: 11, y: -115}
+      - {x: 15, y: -113}
+      - {x: 19, y: -109}
+      - {x: 21, y: -104}
+      - {x: 21, y: -90}
+      - {x: 23, y: -88}
+      - {x: 39, y: -87}
+      - {x: 55, y: -83}
+      - {x: 59, y: -81}
+      - {x: 64, y: -77}
+      - {x: 67, y: -72}
+      - {x: 67, y: -62}
+      - {x: 66, y: -59}
+      - {x: 60, y: -47}
+      - {x: 57, y: -43}
+      - {x: 59, y: -42}
+      - {x: 62, y: -36}
+      - {x: 62, y: -32}
+      - {x: 60, y: -26}
+      - {x: 55, y: -17}
+      - {x: 49, y: -9}
+      - {x: 48, y: -6}
+      - {x: 50, y: -3}
+      - {x: 50, y: 4}
+      - {x: 49, y: 9}
+      - {x: 48, y: 12}
+      - {x: 46, y: 16}
+      - {x: 42, y: 23}
+      - {x: 38, y: 29}
+      - {x: 30, y: 38}
+      - {x: 33, y: 42}
+      - {x: 33, y: 48}
+      - {x: 31, y: 54}
+      - {x: 28, y: 59}
+      - {x: 22, y: 67}
+      - {x: 17, y: 72}
+      - {x: 16, y: 77}
+      - {x: 16, y: 84}
+      - {x: 15, y: 86}
+      - {x: 20, y: 91}
+      - {x: 20, y: 95}
+      - {x: 19, y: 97}
+      - {x: 7, y: 103}
+      - {x: 6, y: 106}
+      - {x: 2, y: 110}
+      - {x: -2, y: 110}
+      - {x: -6, y: 106}
+      - {x: -9, y: 101}
+      - {x: -13, y: 100}
+      - {x: -19, y: 97}
+      - {x: -20, y: 95}
+      - {x: -20, y: 91}
+      - {x: -16, y: 84}
+      - {x: -16, y: 77}
+      - {x: -17, y: 73}
+      - {x: -22, y: 67}
+      - {x: -28, y: 59}
+      - {x: -31, y: 54}
+      - {x: -33, y: 48}
+      - {x: -33, y: 42}
+      - {x: -30, y: 38}
+      - {x: -38, y: 29}
+      - {x: -42, y: 23}
+      - {x: -46, y: 16}
+      - {x: -48, y: 12}
+      - {x: -49, y: 9}
+      - {x: -50, y: 4}
+      - {x: -50, y: -3}
+      - {x: -48, y: -7}
+      - {x: -51, y: -11}
+      - {x: -55, y: -17}
+      - {x: -58, y: -24}
+      - {x: -60, y: -26}
+      - {x: -62, y: -32}
+      - {x: -62, y: -36}
+      - {x: -59, y: -42}
+      - {x: -57, y: -43}
+      - {x: -60, y: -48}
+      - {x: -65, y: -58}
+      - {x: -67, y: -65}
+      - {x: -67, y: -69}
+      - {x: -66, y: -73}
+      - {x: -62, y: -79}
+      - {x: -57, y: -82}
+      - {x: -51, y: -84}
+      - {x: -39, y: -87}
+      - {x: -23, y: -88}
+      - {x: -21, y: -90}
+      - {x: -21, y: -104}
+      - {x: -19, y: -109}
+      - {x: -15, y: -113}
+      - {x: -11, y: -115}
+      - {x: -6, y: -116}
+      - {x: 6, y: -116}
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 1537655665
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Item_Christmas Tree_0: -1451011159848278836
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
