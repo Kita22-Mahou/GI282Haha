@@ -3,18 +3,26 @@ using UnityEngine;
 public class Box : MonoBehaviour
 {
     [Header("Box Data")]
-    [SerializeField]
-    private int tier = 1;
-
-    [SerializeField]
-    private string variant = "A";
+    [SerializeField] private int tier = 1;
+    [SerializeField] private string variant = "A";
 
     [Header("References")]
-    public BoxDatabase database;
+    [SerializeField] private BoxDatabase database;
+
+    [Header("Merge Settings")]
+    [SerializeField] private float mergeCheckRadius = 0.15f;
+    [SerializeField] private float mergeCooldown = 0.08f;
+
+    [Header("Explosion")]
+    [SerializeField] private float explosionRadius = 2.5f;
+    [SerializeField] private float explosionForce = 6f;
+    [SerializeField] private float explosionUpForce = 1.0f;
 
     private Rigidbody2D rb;
+    private BoxCollider2D boxCollider;
+
     private bool isMerging = false;
-    private float mergeLockTimer;
+    private float mergeTimer = 0f;
 
     public int Tier => tier;
     public string Variant => variant;
@@ -22,6 +30,7 @@ public class Box : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        boxCollider = GetComponent<BoxCollider2D>();
     }
 
     private void Start()
@@ -29,98 +38,161 @@ public class Box : MonoBehaviour
         if (database == null)
             database = FindFirstObjectByType<BoxDatabase>();
 
-        mergeLockTimer = 0.08f;
+        mergeTimer = mergeCooldown;
     }
 
     private void Update()
     {
-        if (mergeLockTimer > 0f)
-            mergeLockTimer -= Time.deltaTime;
+        if (mergeTimer > 0f)
+            mergeTimer -= Time.deltaTime;
     }
 
-    // =========================================
-    // ตั้งค่า Box
-    // =========================================
+    // =====================================================
+    // Set Data
+    // =====================================================
 
-    public void SetBoxData(
-        int newTier,
-        string newVariant
-    )
+    public void SetBoxData(int newTier, string newVariant)
     {
-        tier = Mathf.Clamp(
-            newTier,
-            1,
-            6
-        );
+        tier = Mathf.Clamp(newTier, 1, 6);
 
-        variant =
-            string.IsNullOrWhiteSpace(newVariant)
-                ? "A"
-                : newVariant.Trim().ToUpperInvariant();
+        variant = string.IsNullOrWhiteSpace(newVariant)
+            ? "A"
+            : newVariant.Trim().ToUpperInvariant();
     }
 
-    // =========================================
-    // Collision
-    // =========================================
+    public void SetDatabase(BoxDatabase newDatabase)
+    {
+        database = newDatabase;
+    }
 
-    private void OnCollisionEnter2D(
-        Collision2D collision
-    )
+    // =====================================================
+    // Collision
+    // =====================================================
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        TryMerge(collision.gameObject);
+    }
+
+    // =====================================================
+    // Backup Merge Check
+    // =====================================================
+
+    private void FixedUpdate()
     {
         if (isMerging)
             return;
 
-        if (mergeLockTimer > 0f)
+        if (mergeTimer > 0f)
             return;
 
-        Box other =
-            collision.gameObject.GetComponent<Box>();
-
-        if (other == null ||
-            other == this)
-            return;
-
-        if (other.isMerging)
-            return;
-
-        if (other.mergeLockTimer > 0f)
-            return;
-
-        // ต้อง Tier เดียวกัน
-        if (tier != other.tier)
-            return;
-
-        // ต้อง Variant เดียวกัน
-        if (variant != other.variant)
-            return;
-
-        // Tier 6 สูงสุด
-        if (tier >= 6)
-            return;
-
-        Merge(other);
+        CheckNearbyBoxes();
     }
 
-    // =========================================
-    // Merge
-    // =========================================
+    private void CheckNearbyBoxes()
+    {
+        if (boxCollider == null)
+            return;
+
+        Bounds bounds = boxCollider.bounds;
+
+        Collider2D[] hits =
+            Physics2D.OverlapBoxAll(
+                bounds.center,
+                bounds.size + Vector3.one * mergeCheckRadius,
+                0f
+            );
+
+        foreach (Collider2D hit in hits)
+        {
+            if (hit == null)
+                continue;
+
+            if (hit.gameObject == gameObject)
+                continue;
+
+            Box other =
+                hit.GetComponent<Box>();
+
+            if (other == null)
+                continue;
+
+            if (TryMerge(other))
+                return;
+        }
+    }
+
+    // =====================================================
+    // Check Merge
+    // =====================================================
+
+    private bool TryMerge(GameObject otherObject)
+    {
+        if (otherObject == null)
+            return false;
+
+        Box other =
+            otherObject.GetComponent<Box>();
+
+        if (other == null)
+            return false;
+
+        return TryMerge(other);
+    }
+
+    private bool TryMerge(Box other)
+    {
+        if (other == null)
+            return false;
+
+        if (isMerging || other.isMerging)
+            return false;
+
+        if (mergeTimer > 0f ||
+            other.mergeTimer > 0f)
+            return false;
+
+        if (tier != other.tier)
+            return false;
+
+        if (variant != other.variant)
+            return false;
+
+        if (tier >= 6)
+            return false;
+
+        Merge(other);
+
+        return true;
+    }
+
+    // =====================================================
+    // MERGE
+    // =====================================================
 
     private void Merge(Box other)
     {
         isMerging = true;
         other.isMerging = true;
 
-        Vector3 mergePosition =
+        Vector2 mergePosition =
             (
-                transform.position +
-                other.transform.position
+                (Vector2)transform.position +
+                (Vector2)other.transform.position
             ) * 0.5f;
 
-        int nextTier =
-            tier + 1;
+        // ================================================
+        // 1. ผลักของรอบตัวก่อน
+        // ================================================
 
-        string nextVariant =
-            variant;
+        ApplyExplosion(
+            mergePosition,
+            other
+        );
+
+        int nextTier = tier + 1;
+
+        string nextVariant = variant;
 
         if (database == null)
             database =
@@ -135,6 +207,10 @@ public class Box : MonoBehaviour
             return;
         }
 
+        // ================================================
+        // 2. หา Prefab ตัวใหม่
+        // ================================================
+
         GameObject nextPrefab =
             database.GetPrefab(
                 nextTier,
@@ -144,7 +220,7 @@ public class Box : MonoBehaviour
         if (nextPrefab == null)
         {
             Debug.LogError(
-                $"Box: Missing prefab for Tier {nextTier}, Variant {nextVariant}."
+                $"Box: Missing prefab for Tier {nextTier}, Variant {nextVariant}"
             );
 
             isMerging = false;
@@ -152,6 +228,10 @@ public class Box : MonoBehaviour
 
             return;
         }
+
+        // ================================================
+        // 3. สร้างกล่องใหม่
+        // ================================================
 
         GameObject newBoxObject =
             Instantiate(
@@ -165,7 +245,7 @@ public class Box : MonoBehaviour
 
         if (newBox != null)
         {
-            newBox.database = database;
+            newBox.SetDatabase(database);
 
             newBox.SetBoxData(
                 nextTier,
@@ -173,25 +253,141 @@ public class Box : MonoBehaviour
             );
         }
 
+        // ================================================
+        // 4. ให้กล่องใหม่ไม่โดนแรงส่งมั่ว
+        // ================================================
+
         Rigidbody2D newRb =
             newBoxObject.GetComponent<Rigidbody2D>();
 
         if (newRb != null)
         {
             newRb.simulated = true;
+
             newRb.linearVelocity = Vector2.zero;
             newRb.angularVelocity = 0f;
+
+            // ลดแรงเสียดทานจากการเกิดในกอง
+            newRb.Sleep();
         }
 
-        // Score
-        if (GameManager.Instance != null)
-        {
-            GameManager.Instance.AddScore(
-                tier
-            );
-        }
+        // ================================================
+        // 5. ลบกล่องเก่า
+        // ================================================
 
         Destroy(gameObject);
         Destroy(other.gameObject);
+
+        // ================================================
+        // 6. Score
+        // ================================================
+
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.AddScore(tier);
+        }
+    }
+
+    // =====================================================
+    // EXPLOSION
+    // =====================================================
+
+    private void ApplyExplosion(
+        Vector2 explosionPosition,
+        Box otherMergedBox
+    )
+    {
+        Collider2D[] hits =
+            Physics2D.OverlapCircleAll(
+                explosionPosition,
+                explosionRadius
+            );
+
+        foreach (Collider2D hit in hits)
+        {
+            if (hit == null)
+                continue;
+
+            Rigidbody2D targetRb =
+                hit.attachedRigidbody;
+
+            if (targetRb == null)
+                continue;
+
+            // ไม่ผลักตัวเอง
+            if (targetRb.gameObject == gameObject)
+                continue;
+
+            // ไม่ผลักอีกกล่องที่กำลัง Merge
+            if (targetRb.gameObject ==
+                otherMergedBox.gameObject)
+                continue;
+
+            Box targetBox =
+                targetRb.GetComponent<Box>();
+
+            if (targetBox != null &&
+                targetBox.isMerging)
+                continue;
+
+            Vector2 offset =
+                targetRb.worldCenterOfMass -
+                explosionPosition;
+
+            float distance =
+                offset.magnitude;
+
+            if (distance < 0.05f)
+            {
+                offset =
+                    Random.insideUnitCircle.normalized;
+
+                distance = 0.05f;
+            }
+
+            Vector2 direction =
+                offset.normalized;
+
+            // ยิ่งใกล้ ยิ่งแรง
+            float falloff =
+                1f -
+                Mathf.Clamp01(
+                    distance /
+                    explosionRadius
+                );
+
+            float finalForce =
+                explosionForce *
+                falloff;
+
+            Vector2 force =
+                direction *
+                finalForce;
+
+            // ดันขึ้นเล็กน้อย
+            force.y +=
+                explosionUpForce *
+                falloff;
+
+            // เคลียร์แรงเดิมก่อน
+            targetRb.linearVelocity *= 0.25f;
+
+            targetRb.AddForce(
+                force,
+                ForceMode2D.Impulse
+            );
+        }
+    }
+
+    // =====================================================
+    // Debug
+    // =====================================================
+
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.DrawWireSphere(
+            transform.position,
+            explosionRadius
+        );
     }
 }

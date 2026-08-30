@@ -132,7 +132,9 @@ public class BoxSpawner : MonoBehaviour
             currentBox.GetComponent<Box>();
 
         if (box != null)
-            box.database = database;
+{
+    box.SetDatabase(database);
+}
 
         Rigidbody2D rb =
             currentBox.GetComponent<Rigidbody2D>();

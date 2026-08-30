@@ -510,6 +510,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7797e2120307c664392f1de5562a03d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BoxSpawner
+  database: {fileID: 0}
+  boxQueue: {fileID: 0}
+  nextBoxUI: {fileID: 0}
+  minX: -2.5
+  maxX: 2.5
+  spawnY: 5.5
+  moveSpeed: 2.5
+  nextSpawnDelay: 0.4
 --- !u!4 &296552511
 Transform:
   m_ObjectHideFlags: 0
@@ -540,11 +548,11 @@ MonoBehaviour:
   database: {fileID: 1694878149}
   boxQueue: {fileID: 333095226}
   nextBoxUI: {fileID: 1857389994}
-  minX: -2.7
-  maxX: 2.7
+  minX: -3
+  maxX: 3
   spawnY: 3.5
   moveSpeed: 5.5
-  nextSpawnDelay: 0.4
+  nextSpawnDelay: 0.1
 --- !u!1001 &300401983
 PrefabInstance:
   m_ObjectHideFlags: 0
