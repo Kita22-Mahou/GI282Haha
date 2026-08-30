@@ -510,14 +510,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7797e2120307c664392f1de5562a03d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BoxSpawner
-  database: {fileID: 0}
-  boxQueue: {fileID: 0}
-  nextBoxUI: {fileID: 0}
-  minX: -2.5
-  maxX: 2.5
-  spawnY: 5.5
-  moveSpeed: 2.5
-  nextSpawnDelay: 0.4
 --- !u!4 &296552511
 Transform:
   m_ObjectHideFlags: 0
@@ -1085,7 +1077,7 @@ BoxCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 5a383148d4158ab4ebc5dff7e459ef98, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -1987,7 +1979,7 @@ BoxCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 5a383148d4158ab4ebc5dff7e459ef98, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -2440,7 +2432,7 @@ BoxCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 5a383148d4158ab4ebc5dff7e459ef98, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0
