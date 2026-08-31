@@ -248,10 +248,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 5165776137714530237, guid: 287b771ca98b6ad42bd4b854b73a8038, type: 3}
-      propertyPath: explosionForce
-      value: 50
-      objectReference: {fileID: 0}
     - target: {fileID: 5273818571398748902, guid: 287b771ca98b6ad42bd4b854b73a8038, type: 3}
       propertyPath: m_LocalPosition.x
       value: -6.84
@@ -297,8 +293,12 @@ PrefabInstance:
       value: 3_Item_Christmas Stocking
       objectReference: {fileID: 0}
     - target: {fileID: 5989281396273653274, guid: 287b771ca98b6ad42bd4b854b73a8038, type: 3}
-      propertyPath: m_Constraints
-      value: 7
+      propertyPath: m_BodyType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5989281396273653274, guid: 287b771ca98b6ad42bd4b854b73a8038, type: 3}
+      propertyPath: m_Simulated
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -314,8 +314,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4050380479422300318, guid: f7219258588640e49a08547793ac0973, type: 3}
-      propertyPath: m_Constraints
-      value: 7
+      propertyPath: m_BodyType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4050380479422300318, guid: f7219258588640e49a08547793ac0973, type: 3}
+      propertyPath: m_Simulated
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4870691603319043162, guid: f7219258588640e49a08547793ac0973, type: 3}
       propertyPath: m_LocalPosition.x
@@ -356,10 +360,6 @@ PrefabInstance:
     - target: {fileID: 4870691603319043162, guid: f7219258588640e49a08547793ac0973, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5873889326468312246, guid: f7219258588640e49a08547793ac0973, type: 3}
-      propertyPath: explosionForce
-      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 8267562671187750740, guid: f7219258588640e49a08547793ac0973, type: 3}
       propertyPath: m_Name
@@ -609,17 +609,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1998048123197542234, guid: 67a05fbe07a659044a178dfb1f36e8d5, type: 3}
-      propertyPath: explosionForce
-      value: 50
-      objectReference: {fileID: 0}
     - target: {fileID: 2943363871397561979, guid: 67a05fbe07a659044a178dfb1f36e8d5, type: 3}
       propertyPath: m_Name
       value: 1_Item_Ornament
       objectReference: {fileID: 0}
     - target: {fileID: 4100908769689404420, guid: 67a05fbe07a659044a178dfb1f36e8d5, type: 3}
-      propertyPath: m_Constraints
-      value: 7
+      propertyPath: m_BodyType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4100908769689404420, guid: 67a05fbe07a659044a178dfb1f36e8d5, type: 3}
+      propertyPath: m_Simulated
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -683,8 +683,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 430850868022091681, guid: 8781eb87e6beaf94fad16ff17f4cf5fd, type: 3}
-      propertyPath: m_Constraints
-      value: 7
+      propertyPath: m_BodyType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 430850868022091681, guid: 8781eb87e6beaf94fad16ff17f4cf5fd, type: 3}
+      propertyPath: m_Simulated
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2119087729471360988, guid: 8781eb87e6beaf94fad16ff17f4cf5fd, type: 3}
       propertyPath: m_Name
@@ -729,10 +733,6 @@ PrefabInstance:
     - target: {fileID: 3760138228458202124, guid: 8781eb87e6beaf94fad16ff17f4cf5fd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5949274715727782351, guid: 8781eb87e6beaf94fad16ff17f4cf5fd, type: 3}
-      propertyPath: explosionForce
-      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -791,13 +791,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: 6_Item_Christmas Tree
       objectReference: {fileID: 0}
-    - target: {fileID: 7948111315201197890, guid: e78e1d8e7e8346d4180ef130344f4a9a, type: 3}
-      propertyPath: explosionForce
-      value: 50
+    - target: {fileID: 8542150389355431505, guid: e78e1d8e7e8346d4180ef130344f4a9a, type: 3}
+      propertyPath: m_BodyType
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8542150389355431505, guid: e78e1d8e7e8346d4180ef130344f4a9a, type: 3}
-      propertyPath: m_Constraints
-      value: 7
+      propertyPath: m_Simulated
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -813,8 +813,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 421454843127982925, guid: 6b8ab75b993603941a9d7da36b461de4, type: 3}
-      propertyPath: m_Constraints
-      value: 7
+      propertyPath: m_BodyType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 421454843127982925, guid: 6b8ab75b993603941a9d7da36b461de4, type: 3}
+      propertyPath: m_Simulated
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2430465675444054443, guid: 6b8ab75b993603941a9d7da36b461de4, type: 3}
       propertyPath: m_LocalPosition.x
@@ -855,10 +859,6 @@ PrefabInstance:
     - target: {fileID: 2430465675444054443, guid: 6b8ab75b993603941a9d7da36b461de4, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5654420393189339958, guid: 6b8ab75b993603941a9d7da36b461de4, type: 3}
-      propertyPath: explosionForce
-      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 8893767792335310511, guid: 6b8ab75b993603941a9d7da36b461de4, type: 3}
       propertyPath: m_Name
@@ -1338,16 +1338,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 4244399666160688667, guid: 1a0a3f12481bb694d8d88be242546d4b, type: 3}
-      propertyPath: m_Constraints
-      value: 7
+      propertyPath: m_BodyType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4244399666160688667, guid: 1a0a3f12481bb694d8d88be242546d4b, type: 3}
+      propertyPath: m_Simulated
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4573456472568934257, guid: 1a0a3f12481bb694d8d88be242546d4b, type: 3}
       propertyPath: m_Name
       value: 5_Item_Christmas Wreath
-      objectReference: {fileID: 0}
-    - target: {fileID: 7950951415169503328, guid: 1a0a3f12481bb694d8d88be242546d4b, type: 3}
-      propertyPath: explosionForce
-      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 8192859594368626227, guid: 1a0a3f12481bb694d8d88be242546d4b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1482,12 +1482,12 @@ PrefabInstance:
       value: 6_Item_Santa Claus
       objectReference: {fileID: 0}
     - target: {fileID: 1361010941988603070, guid: 61d968a56b0b1df4abb9e8195ef36d2f, type: 3}
-      propertyPath: m_Constraints
-      value: 7
+      propertyPath: m_BodyType
+      value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 5236469639690486361, guid: 61d968a56b0b1df4abb9e8195ef36d2f, type: 3}
-      propertyPath: explosionForce
-      value: 50
+    - target: {fileID: 1361010941988603070, guid: 61d968a56b0b1df4abb9e8195ef36d2f, type: 3}
+      propertyPath: m_Simulated
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7375553579039284637, guid: 61d968a56b0b1df4abb9e8195ef36d2f, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1542,13 +1542,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1400780187947545644, guid: f7585c52f330ce34384f5b163c3899a2, type: 3}
-      propertyPath: explosionForce
-      value: 50
+    - target: {fileID: 1733516083065726815, guid: f7585c52f330ce34384f5b163c3899a2, type: 3}
+      propertyPath: m_BodyType
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1733516083065726815, guid: f7585c52f330ce34384f5b163c3899a2, type: 3}
-      propertyPath: m_Constraints
-      value: 7
+      propertyPath: m_Simulated
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4202237603046146870, guid: f7585c52f330ce34384f5b163c3899a2, type: 3}
       propertyPath: m_Name
@@ -1714,12 +1714,12 @@ PrefabInstance:
       value: 3_Item_Bell
       objectReference: {fileID: 0}
     - target: {fileID: 3635470670427933523, guid: 2d5f70bde1cdb3c47a49b02c476aefb0, type: 3}
-      propertyPath: m_Constraints
-      value: 7
+      propertyPath: m_BodyType
+      value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 4092045171240509497, guid: 2d5f70bde1cdb3c47a49b02c476aefb0, type: 3}
-      propertyPath: explosionForce
-      value: 50
+    - target: {fileID: 3635470670427933523, guid: 2d5f70bde1cdb3c47a49b02c476aefb0, type: 3}
+      propertyPath: m_Simulated
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1872,8 +1872,12 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3111713171565828590, guid: e9e126faeffee3d44be5df6cff9e393e, type: 3}
-      propertyPath: m_Constraints
-      value: 7
+      propertyPath: m_BodyType
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3111713171565828590, guid: e9e126faeffee3d44be5df6cff9e393e, type: 3}
+      propertyPath: m_Simulated
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4209555726591683164, guid: e9e126faeffee3d44be5df6cff9e393e, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1918,10 +1922,6 @@ PrefabInstance:
     - target: {fileID: 6070758855184910642, guid: e9e126faeffee3d44be5df6cff9e393e, type: 3}
       propertyPath: m_Name
       value: 5_Item_Santa Hat
-      objectReference: {fileID: 0}
-    - target: {fileID: 8415624130519842496, guid: e9e126faeffee3d44be5df6cff9e393e, type: 3}
-      propertyPath: explosionForce
-      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2115,13 +2115,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 5379499620936155769, guid: b239672b51a968149b6816cde9872606, type: 3}
-      propertyPath: explosionForce
-      value: 50
+    - target: {fileID: 5949900633625817414, guid: b239672b51a968149b6816cde9872606, type: 3}
+      propertyPath: m_BodyType
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5949900633625817414, guid: b239672b51a968149b6816cde9872606, type: 3}
-      propertyPath: m_Constraints
-      value: 7
+      propertyPath: m_Simulated
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7649566507619671692, guid: b239672b51a968149b6816cde9872606, type: 3}
       propertyPath: m_Name
