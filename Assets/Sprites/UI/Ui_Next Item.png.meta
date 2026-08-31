@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: bf778932ba35b4c4f93ab87f176c907e
+guid: bee8078645b1d71429009304351393b0
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6090268336708067413
-    second: Item_Ornament_0
+      213: 5924824296958179539
+    second: Ui_Next Item_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -56,7 +56,7 @@ TextureImporter:
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
   alphaIsTransparency: 1
-  spriteTessellationDetail: 1
+  spriteTessellationDetail: -1
   textureType: 8
   textureShape: 1
   singleChannelComponent: 0
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -96,69 +96,50 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Item_Ornament_0
+      name: Ui_Next Item_0
       rect:
         serializedVersion: 2
-        x: 4
+        x: 0
         y: 0
-        width: 56
-        height: 64
+        width: 559
+        height: 896
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: bafd4b327350b7ba0800000000000000
-      internalID: -6090268336708067413
+      spriteID: 3d8bbc89e44393250800000000000000
+      internalID: 5924824296958179539
       vertices: []
       indices: 
       edges: []
       weights: []
     outline: []
     customData: 
-    physicsShape:
-    - - {x: 10, y: -28}
-      - {x: 14, y: -26}
-      - {x: 21, y: -19}
-      - {x: 23, y: -16}
-      - {x: 25, y: -10}
-      - {x: 25, y: -3}
-      - {x: 24, y: 5}
-      - {x: 21, y: 11}
-      - {x: 17, y: 16}
-      - {x: 18, y: 22}
-      - {x: 17, y: 27}
-      - {x: 15, y: 30}
-      - {x: 10, y: 30}
-      - {x: 6, y: 28}
-      - {x: 4, y: 26}
-      - {x: 0, y: 26}
-      - {x: -2, y: 26}
-      - {x: -9, y: 29}
-      - {x: -14, y: 29}
-      - {x: -15, y: 27}
-      - {x: -16, y: 22}
-      - {x: -15, y: 17}
-      - {x: -17, y: 16}
-      - {x: -21, y: 11}
-      - {x: -24, y: 6}
-      - {x: -25, y: 1}
-      - {x: -25, y: -8}
-      - {x: -23, y: -15}
-      - {x: -20, y: -20}
-      - {x: -16, y: -24}
-      - {x: -6, y: -29}
-      - {x: 7, y: -29}
+    physicsShape: []
     bones: []
     spriteID: 5e97eb03825dee720800000000000000
-    internalID: 1537655665
+    internalID: 0
     vertices: []
     indices: 
     edges: []
@@ -167,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Item_Ornament_0: -6090268336708067413
+      Ui_Next Item_0: 5924824296958179539
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

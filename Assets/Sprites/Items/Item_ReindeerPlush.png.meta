@@ -1,10 +1,16 @@
 fileFormatVersion: 2
-guid: 273b00c1c3d1f8a4b86bb61750564a39
+guid: bfff7954f530f034fb61420fd51e51c9
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 5691004289284926609
-    second: Item_Christmas Stocking_0
+      213: -1760536005277504561
+    second: Item_ReindeerPlush_0
+  - first:
+      213: -2613350410387410871
+    second: Item_ReindeerPlush_1
+  - first:
+      213: 198025617798893816
+    second: Item_ReindeerPlush_2
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -96,16 +102,51 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Item_Christmas Stocking_0
+      name: Item_ReindeerPlush_0
       rect:
         serializedVersion: 2
-        x: 10
+        x: 0
+        y: 31
+        width: 5
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fcb2627b4d15197e0800000000000000
+      internalID: -1760536005277504561
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Item_ReindeerPlush_1
+      rect:
+        serializedVersion: 2
+        x: 3
         y: 0
-        width: 101
+        width: 123
         height: 128
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -115,8 +156,30 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 19c6d06bf328afe40800000000000000
-      internalID: 5691004289284926609
+      spriteID: 940bc3bd5a38bbbd0800000000000000
+      internalID: -2613350410387410871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Item_ReindeerPlush_2
+      rect:
+        serializedVersion: 2
+        x: 123
+        y: 31
+        width: 5
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f0945d00478fb200800000000000000
+      internalID: 198025617798893816
       vertices: []
       indices: 
       edges: []
@@ -135,7 +198,9 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Item_Christmas Stocking_0: 5691004289284926609
+      Item_ReindeerPlush_0: -1760536005277504561
+      Item_ReindeerPlush_1: -2613350410387410871
+      Item_ReindeerPlush_2: 198025617798893816
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

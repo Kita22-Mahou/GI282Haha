@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 2541397372dbf174fadf5ad0cc205a31
+guid: cf037d5d870b9f34d81a22f2c734c29f
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -6921181821829805367
-    second: Item_Christmas Wreath_0
+      213: 2691820496512515944
+    second: Only Wooden base_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -96,17 +96,30 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Item_Christmas Wreath_0
+      name: Only Wooden base_0
       rect:
         serializedVersion: 2
-        x: 29
-        y: 8
-        width: 199
-        height: 233
+        x: 37
+        y: 4
+        width: 739
+        height: 307
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9ca81f39dc503ff90800000000000000
-      internalID: -6921181821829805367
+      spriteID: 86f7ebdca744b5520800000000000000
+      internalID: 2691820496512515944
       vertices: []
       indices: 
       edges: []
@@ -135,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Item_Christmas Wreath_0: -6921181821829805367
+      Only Wooden base_0: 2691820496512515944
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
