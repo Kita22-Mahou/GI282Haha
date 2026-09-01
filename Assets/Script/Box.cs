@@ -78,16 +78,16 @@ public class Box : MonoBehaviour
     // Backup Merge Check
     // =====================================================
 
-    private void FixedUpdate()
-    {
-        if (isMerging)
-            return;
+    //private void FixedUpdate()
+    //{
+    //    if (isMerging)
+    //        return;
 
-        if (mergeTimer > 0f)
-            return;
+    //    if (mergeTimer > 0f)
+    //        return;
 
-        CheckNearbyBoxes();
-    }
+    //    CheckNearbyBoxes();
+    //}
 
     private void CheckNearbyBoxes()
     {

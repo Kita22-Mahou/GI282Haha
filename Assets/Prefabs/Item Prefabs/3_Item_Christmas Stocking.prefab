@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: 243924487184494612}
   - component: {fileID: 8325707635005062849}
   - component: {fileID: 2274015866775914644}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: 3_Item_Christmas Stocking
   m_TagString: Untagged
   m_Icon: {fileID: 0}

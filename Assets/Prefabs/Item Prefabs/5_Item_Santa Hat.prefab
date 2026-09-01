@@ -152,7 +152,7 @@ GameObject:
   - component: {fileID: 6362016825527768278}
   - component: {fileID: 8858349283644451739}
   - component: {fileID: 6976960728542318265}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: 5_Item_Santa Hat
   m_TagString: Untagged
   m_Icon: {fileID: 0}

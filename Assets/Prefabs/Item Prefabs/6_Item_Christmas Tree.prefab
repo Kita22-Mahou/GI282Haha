@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 402482026364479485}
   - component: {fileID: 1346593522280383574}
   - component: {fileID: 2510815992380145342}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: 6_Item_Christmas Tree
   m_TagString: Untagged
   m_Icon: {fileID: 0}

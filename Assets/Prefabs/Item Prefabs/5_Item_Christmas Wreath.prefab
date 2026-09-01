@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 9005150439789723202}
   - component: {fileID: 450513763750600774}
   - component: {fileID: 3441346408240974215}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: 5_Item_Christmas Wreath
   m_TagString: Untagged
   m_Icon: {fileID: 0}

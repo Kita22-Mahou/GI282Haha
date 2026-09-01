@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 2795594502067190}
   - component: {fileID: 6224413535115057565}
   - component: {fileID: 8113443301915878580}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: 4_Item_ReindeerPlush
   m_TagString: Untagged
   m_Icon: {fileID: 0}

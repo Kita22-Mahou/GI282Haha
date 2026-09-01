@@ -160,7 +160,7 @@ GameObject:
   - component: {fileID: 7486005108887043356}
   - component: {fileID: 5648666418523647217}
   - component: {fileID: 8705802415168908144}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: 6_Item_Santa Claus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
