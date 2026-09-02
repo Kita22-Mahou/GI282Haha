@@ -36,7 +36,7 @@ public class Box : MonoBehaviour
     private void Start()
     {
         if (database == null)
-            database = FindFirstObjectByType<BoxDatabase>();
+            database = FindAnyObjectByType<BoxDatabase>();
 
         mergeTimer = mergeCooldown;
     }
@@ -196,7 +196,7 @@ public class Box : MonoBehaviour
 
         if (database == null)
             database =
-                FindFirstObjectByType<BoxDatabase>();
+                FindAnyObjectByType<BoxDatabase>();
 
         if (database == null)
         {
@@ -377,6 +377,67 @@ public class Box : MonoBehaviour
                 ForceMode2D.Impulse
             );
         }
+    }
+
+    public void Explode(
+    float radius,
+    float force,
+    float upForce)
+    {
+        Collider2D[] hits =
+            Physics2D.OverlapCircleAll(
+                transform.position,
+                radius
+            );
+
+        Vector2 explosionPosition =
+            transform.position;
+
+        foreach (Collider2D hit in hits)
+        {
+            if (hit == null)
+                continue;
+
+            if (hit.gameObject == gameObject)
+                continue;
+
+            Rigidbody2D otherRb =
+                hit.GetComponent<Rigidbody2D>();
+
+            if (otherRb == null)
+                continue;
+
+            Vector2 direction =
+                (Vector2)otherRb.transform.position
+                - explosionPosition;
+
+            float distance =
+                direction.magnitude;
+
+            if (distance < 0.01f)
+                direction = Vector2.up;
+            else
+                direction.Normalize();
+
+            float falloff =
+                1f - Mathf.Clamp01(distance / radius);
+
+            Vector2 explosion =
+                direction *
+                (force * falloff);
+
+            explosion.y +=
+                upForce * falloff;
+
+            otherRb.WakeUp();
+
+            otherRb.AddForce(
+                explosion,
+                ForceMode2D.Impulse
+            );
+        }
+
+        Destroy(gameObject);
     }
 
     // =====================================================
