@@ -128,6 +128,9 @@ MonoBehaviour:
   explosionRadius: 2.5
   explosionForce: 2
   explosionUpForce: 0.5
+  spawnSize: 0
+  normalSize: 0.75
+  plusNumber: 0.05
 --- !u!50 &3635470670427933523
 Rigidbody2D:
   serializedVersion: 5

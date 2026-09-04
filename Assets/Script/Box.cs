@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Box : MonoBehaviour
@@ -18,6 +19,12 @@ public class Box : MonoBehaviour
     [SerializeField] private float explosionForce = 6f;
     [SerializeField] private float explosionUpForce = 1.0f;
 
+    [Header("PopOnSpawn")]
+    [SerializeField] private float spawnSize = 0f;
+    [SerializeField] private float normalSize;
+    [SerializeField] private float plusNumber;
+
+
     private Rigidbody2D rb;
     private BoxCollider2D boxCollider;
 
@@ -35,6 +42,9 @@ public class Box : MonoBehaviour
 
     private void Start()
     {
+        transform.localScale = new Vector3(0.1f, 0.1f, 1);
+        StartCoroutine(ItemPopOnSpawn());
+
         if (database == null)
             database = FindAnyObjectByType<BoxDatabase>();
 
@@ -160,7 +170,7 @@ public class Box : MonoBehaviour
 
         if (tier >= 6)
             return false;
-
+        Debug.Log("Merge");
         Merge(other);
 
         return true;
@@ -450,5 +460,19 @@ public class Box : MonoBehaviour
             transform.position,
             explosionRadius
         );
+    }
+
+    // ======================================================
+
+    IEnumerator ItemPopOnSpawn()
+    {
+        float sizeNumCheck = 0f;
+
+        while (sizeNumCheck <= normalSize)
+        {
+            sizeNumCheck += plusNumber;
+            transform.localScale += new Vector3(plusNumber, plusNumber, 0);
+            yield return null;
+        }
     }
 }

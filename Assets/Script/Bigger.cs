@@ -6,7 +6,7 @@ public class Bigger : MonoBehaviour
     [SerializeField] private float biggerTime = 2f;
 
     [Header("Detection")]
-    [SerializeField] private LayerMask boxLayer;
+    [SerializeField] private LayerMask itemLayer;
 
     [Header("Jar Area")]
     [SerializeField]
@@ -14,7 +14,7 @@ public class Bigger : MonoBehaviour
         new Vector2(5f, 8f);
 
     [Header("Tier 6 Explosion")]
-    [SerializeField] private float tier6MaxScale = 1.5f;
+    [SerializeField] private float tier6MaxScale = 1.3f;
     [SerializeField] private float explosionRadius = 2.5f;
     [SerializeField] private float explosionForce = 8f;
     [SerializeField] private float explosionUpForce = 2f;
@@ -35,7 +35,7 @@ public class Bigger : MonoBehaviour
                 transform.position,
                 detectionSize,
                 0f,
-                boxLayer
+                itemLayer
             );
 
         foreach (Collider2D hit in hits)
@@ -84,10 +84,10 @@ public class Bigger : MonoBehaviour
         switch (tier)
         {
             case 1:
-                return 1.0f;
+                return 1.2f;
 
             case 2:
-                return 1.1f;
+                return 1.6f;
 
             case 3:
                 return 1.2f;
@@ -96,7 +96,7 @@ public class Bigger : MonoBehaviour
                 return 1.3f;
 
             case 5:
-                return 1.4f;
+                return 1.2f;
 
             case 6:
                 return tier6MaxScale;
@@ -110,25 +110,25 @@ public class Bigger : MonoBehaviour
         switch (tier)
         {
             case 1:
-                return 0.03f;
+                return 0.04f;
 
             case 2:
                 return 0.04f;
 
             case 3:
-                return 0.05f;
+                return 0.04f;
 
             case 4:
-                return 0.06f;
+                return 0.04f;
 
             case 5:
-                return 0.07f;
+                return 0.04f;
 
             case 6:
-                return 0.08f;
+                return 0.1f;
 
             default:
-                return 0.05f;
+                return 0.04f;
         }
     }
 
