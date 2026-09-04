@@ -84,19 +84,19 @@ public class Bigger : MonoBehaviour
         switch (tier)
         {
             case 1:
-                return 1.2f;
+                return 1.1f;
 
             case 2:
-                return 1.6f;
-
-            case 3:
-                return 1.2f;
-
-            case 4:
                 return 1.3f;
 
-            case 5:
+            case 3:
+                return 1.1f;
+
+            case 4:
                 return 1.2f;
+
+            case 5:
+                return 1.1f;
 
             case 6:
                 return tier6MaxScale;
