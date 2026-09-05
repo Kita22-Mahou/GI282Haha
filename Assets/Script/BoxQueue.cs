@@ -25,7 +25,7 @@ public class BoxQueue : MonoBehaviour
     {
         if (database == null)
             database =
-                FindFirstObjectByType<BoxDatabase>();
+                FindAnyObjectByType<BoxDatabase>();
 
         if (database == null)
         {
@@ -237,7 +237,7 @@ public class BoxQueue : MonoBehaviour
             i++;
         }
 
-        Debug.Log(message);
+        //Debug.Log(message);
     }
 
     private string GetLabel(int index)

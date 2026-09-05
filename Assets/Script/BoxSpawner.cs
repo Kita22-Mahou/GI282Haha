@@ -27,11 +27,11 @@ public class BoxSpawner : MonoBehaviour
     {
         if (database == null)
             database =
-                FindFirstObjectByType<BoxDatabase>();
+                FindAnyObjectByType<BoxDatabase>();
 
         if (boxQueue == null)
             boxQueue =
-                FindFirstObjectByType<BoxQueue>();
+                FindAnyObjectByType<BoxQueue>();
 
         if (database == null || boxQueue == null)
         {
