@@ -20,6 +20,7 @@ public class Box : MonoBehaviour
     [SerializeField] private float explosionUpForce = 1.0f;
 
     [Header("PopOnSpawn")]
+    [SerializeField] private float spawnSize = 0f;
     [SerializeField] private float normalSize;
     [SerializeField] private float plusNumber;
 
