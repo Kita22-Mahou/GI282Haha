@@ -24,10 +24,11 @@ public class Box : MonoBehaviour
     [SerializeField] private float normalSize;
     [SerializeField] private float plusNumber;
 
-
+    [Header("???")]
     private Rigidbody2D rb;
     private BoxCollider2D boxCollider;
 
+    private AudioManager audioManager;
     private bool isMerging = false;
     private float mergeTimer = 0f;
 
@@ -36,6 +37,7 @@ public class Box : MonoBehaviour
 
     private void Awake()
     {
+        audioManager = FindAnyObjectByType<AudioManager>();
         rb = GetComponent<Rigidbody2D>();
         boxCollider = GetComponent<BoxCollider2D>();
     }
@@ -188,6 +190,8 @@ public class Box : MonoBehaviour
 
     private void Merge(Box other)
     {
+        audioManager.PlayMergeSFX();
+
         isMerging = true;
         other.isMerging = true;
 

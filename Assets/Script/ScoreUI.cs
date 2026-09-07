@@ -24,13 +24,12 @@ public class ScoreUI : MonoBehaviour
     {
         if (scoreText != null)
         {
-            scoreText.text = "Score : " + score.ToString("N0");
+            scoreText.text = score.ToString("N0");
         }
 
         if (highScoreText != null)
         {
-            highScoreText.text =
-                "HighScore : " + highScore.ToString("N0");
+            highScoreText.text = highScore.ToString("N0");
         }
     }
 }

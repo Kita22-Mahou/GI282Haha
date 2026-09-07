@@ -24,6 +24,7 @@ public class Bigger : MonoBehaviour
 
     private void Start()
     {
+
         InvokeRepeating(
             nameof(GrowBoxes),
             biggerTime,

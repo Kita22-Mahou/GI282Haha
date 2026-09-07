@@ -20,9 +20,17 @@ public class BoxSpawner : MonoBehaviour
     [Header("Timing")]
     [SerializeField] private float nextSpawnDelay = 0.4f;
 
+    [Header("Audio")]
+    private AudioManager audioManager;
+
     private GameObject currentBox;
     private bool canMove;
     private float moveDirection = 1f;
+
+    private void Awake()
+    {
+        audioManager = FindAnyObjectByType<AudioManager>();
+    }
 
     private void Start()
     {
@@ -163,6 +171,8 @@ public class BoxSpawner : MonoBehaviour
 
     public void DropBox()
     {
+        audioManager.PlayDropSFX();
+
         if (currentBox == null ||
             !canMove)
             return;
@@ -218,7 +228,7 @@ public class BoxSpawner : MonoBehaviour
             itemPos = currentBox.transform.position;
         }
 
-            Vector3 aimAssistPos = itemPos + new Vector3(0, -2, 0);
+            Vector3 aimAssistPos = itemPos + new Vector3(0, -3, 0);
         aimAssist.transform.position = aimAssistPos;
 
     }

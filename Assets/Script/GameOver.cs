@@ -2,6 +2,7 @@ using TMPro;
 using Unity.VectorGraphics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameOver : MonoBehaviour
 {
@@ -15,17 +16,20 @@ public class GameOver : MonoBehaviour
 
     public TextMeshProUGUI overloadText;
 
+    public Slider Slider;
+
     private void Start()
     {
         overloadText.enabled = false;
     }
-    private void Update()
+
+    private void FixedUpdate()
     {
         Collider2D[] items = Physics2D.OverlapBoxAll(transform.position, boxSize, 0f, itemLayer);
 
         isCollided = items.Length > 0;
 
-        if(isCollided)
+        if (isCollided)
         {
             time += Time.deltaTime;
             if (time >= loseTime)
@@ -35,10 +39,12 @@ public class GameOver : MonoBehaviour
 
             if (time >= 3)
             {
+                Slider.value += 0.175f;
                 overloadText.enabled = true;
             }
             else
             {
+                Slider.value = 0;
                 overloadText.enabled = false;
             }
         }
