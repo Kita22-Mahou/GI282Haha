@@ -19,6 +19,9 @@ public class Bigger : MonoBehaviour
     [SerializeField] private float explosionForce = 8f;
     [SerializeField] private float explosionUpForce = 2f;
 
+    [SerializeField] private float maxScale;
+    [SerializeField] private float biggerNum;
+
     private void Start()
     {
         InvokeRepeating(
@@ -84,25 +87,25 @@ public class Bigger : MonoBehaviour
         switch (tier)
         {
             case 1:
-                return 1.1f;
+                return maxScale;
 
             case 2:
-                return 1.3f;
+                return maxScale;
 
             case 3:
-                return 1.1f;
+                return maxScale;
 
             case 4:
-                return 1.2f;
+                return maxScale;
 
             case 5:
-                return 1.1f;
+                return maxScale;
 
             case 6:
                 return tier6MaxScale;
 
             default:
-                return 1.2f;
+                return maxScale;
         }
     }
     private float GetGrowthAmount(int tier)
@@ -110,25 +113,25 @@ public class Bigger : MonoBehaviour
         switch (tier)
         {
             case 1:
-                return 0.04f;
+                return biggerNum;
 
             case 2:
-                return 0.04f;
+                return biggerNum;
 
             case 3:
-                return 0.04f;
+                return biggerNum;
 
             case 4:
-                return 0.04f;
+                return biggerNum;
 
             case 5:
-                return 0.04f;
+                return biggerNum;
 
             case 6:
                 return 0.1f;
 
             default:
-                return 0.04f;
+                return biggerNum;
         }
     }
 

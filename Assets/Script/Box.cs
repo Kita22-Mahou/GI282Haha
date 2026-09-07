@@ -84,6 +84,12 @@ public class Box : MonoBehaviour
         TryMerge(collision.gameObject);
     }
 
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        TryMerge(collision.gameObject);
+
+    }
+
     // =====================================================
     // Backup Merge Check
     // =====================================================
