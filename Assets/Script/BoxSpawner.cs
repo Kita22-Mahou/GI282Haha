@@ -7,6 +7,7 @@ public class BoxSpawner : MonoBehaviour
     [SerializeField] private BoxDatabase database;
     [SerializeField] private BoxQueue boxQueue;
     [SerializeField] private NextBoxUI nextBoxUI;
+    [SerializeField] private GameObject aimAssist;
 
     [Header("Spawn Area")]
     [SerializeField] private float minX = -2.5f;
@@ -25,6 +26,9 @@ public class BoxSpawner : MonoBehaviour
 
     private void Start()
     {
+        if (aimAssist == null)
+            aimAssist = GameObject.Find("Aim Assist");
+
         if (database == null)
             database =
                 FindAnyObjectByType<BoxDatabase>();
@@ -55,6 +59,8 @@ public class BoxSpawner : MonoBehaviour
             MoveBox();
 
         CheckDrop();
+
+        MoveAimAssist();
     }
 
     private void MoveBox()
@@ -201,5 +207,20 @@ public class BoxSpawner : MonoBehaviour
                 database
             );
         }
+    }
+
+    // Make aim assist move along item
+    private void MoveAimAssist()
+    {
+        Vector3 itemPos = new Vector3(12, 0, 0);
+
+        if (currentBox != null)
+        {
+            itemPos = currentBox.transform.position;
+        }
+
+            Vector3 aimAssistPos = itemPos + new Vector3(0, -2, 0);
+        aimAssist.transform.position = aimAssistPos;
+
     }
 }
