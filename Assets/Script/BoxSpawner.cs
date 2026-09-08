@@ -9,6 +9,11 @@ public class BoxSpawner : MonoBehaviour
     [SerializeField] private NextBoxUI nextBoxUI;
     [SerializeField] private GameObject aimAssist;
 
+    [Header("Bomb")]
+    [SerializeField] private GameObject bombPrefab;
+    [SerializeField, Range(0f, 1f)]
+    private float bombSpawnChance;
+
     [Header("Spawn Area")]
     [SerializeField] private float minX = -2.5f;
     [SerializeField] private float maxX = 2.5f;
@@ -20,9 +25,16 @@ public class BoxSpawner : MonoBehaviour
     [Header("Timing")]
     [SerializeField] private float nextSpawnDelay = 0.4f;
 
+    [Header("Audio")]
+    private AudioManager audioManager;
+
     private GameObject currentBox;
     private bool canMove;
     private float moveDirection = 1f;
+    private void Awake()
+    {
+        audioManager = FindAnyObjectByType<AudioManager>();
+    }
 
     private void Start()
     {
@@ -102,6 +114,89 @@ public class BoxSpawner : MonoBehaviour
     // Spawn CURRENT
     // =========================================
 
+    //    private void SpawnCurrentBox()
+    //    {
+    //        int index =
+    //            boxQueue.GetCurrentIndex();
+
+    //        if (index < 0)
+    //            return;
+
+    //        GameObject prefab =
+    //            database.GetPrefabByIndex(index);
+
+    //        if (prefab == null)
+    //        {
+    //            Debug.LogError(
+    //                $"BoxSpawner: Prefab index {index} is missing."
+    //            );
+
+    //            return;
+    //        }
+
+    //        currentBox =
+    //            Instantiate(
+    //                prefab,
+    //                new Vector3(
+    //                    0f,
+    //                    spawnY,
+    //                    0f
+    //                ),
+    //                Quaternion.identity
+    //            );
+
+    //        Box box =
+    //            currentBox.GetComponent<Box>();
+
+    //        if (box != null)
+    //{
+    //    box.SetDatabase(database);
+    //}
+
+    //        Rigidbody2D rb =
+    //            currentBox.GetComponent<Rigidbody2D>();
+
+    //        if (rb != null)
+    //        {
+    //            rb.simulated = false;
+    //            rb.linearVelocity = Vector2.zero;
+    //            rb.angularVelocity = 0f;
+    //        }
+
+    //        moveDirection = 1f;
+    //        canMove = true;
+
+    //        RefreshNextUI();
+    //    }
+
+    //    // =========================================
+    //    // SPACE = DROP
+    //    // =========================================
+
+    public void DropBox()
+    {
+        if (currentBox == null || !canMove)
+            return;
+
+        canMove = false;
+
+        Rigidbody2D rb =
+            currentBox.GetComponent<Rigidbody2D>();
+
+        if (rb != null)
+        {
+            rb.simulated = true;
+        }
+
+        currentBox = null;
+
+        // รอแล้วค่อย Spawn กล่องถัดไป
+        Invoke(
+            nameof(SpawnNextBox),
+            nextSpawnDelay
+        );
+    }
+
     private void SpawnCurrentBox()
     {
         int index =
@@ -110,16 +205,29 @@ public class BoxSpawner : MonoBehaviour
         if (index < 0)
             return;
 
-        GameObject prefab =
-            database.GetPrefabByIndex(index);
+        GameObject prefab;
 
-        if (prefab == null)
+        if (Random.value < bombSpawnChance)
         {
-            Debug.LogError(
-                $"BoxSpawner: Prefab index {index} is missing."
-            );
+            prefab = bombPrefab;
 
-            return;
+
+        }
+        else
+        {
+            // กล่องปกติจาก Queue
+
+            prefab =
+                database.GetPrefabByIndex(index);
+
+            if (prefab == null)
+            {
+                Debug.LogError(
+                    $"BoxSpawner: Prefab index {index} is missing."
+                );
+
+                return;
+            }
         }
 
         currentBox =
@@ -137,9 +245,9 @@ public class BoxSpawner : MonoBehaviour
             currentBox.GetComponent<Box>();
 
         if (box != null)
-{
-    box.SetDatabase(database);
-}
+        {
+            box.SetDatabase(database);
+        }
 
         Rigidbody2D rb =
             currentBox.GetComponent<Rigidbody2D>();
@@ -157,41 +265,8 @@ public class BoxSpawner : MonoBehaviour
         RefreshNextUI();
     }
 
-    // =========================================
-    // SPACE = DROP
-    // =========================================
-
-    public void DropBox()
-    {
-        if (currentBox == null ||
-            !canMove)
-            return;
-
-        canMove = false;
-
-        Rigidbody2D rb =
-            currentBox.GetComponent<Rigidbody2D>();
-
-        if (rb != null)
-        {
-            rb.simulated = true;
-        }
-
-        currentBox = null;
-
-        // สำคัญ:
-        // ยังไม่เลื่อน Queue ตอนนี้
-        // รอให้ Spawn ตัวต่อไป
-        Invoke(
-            nameof(SpawnNextBox),
-            nextSpawnDelay
-        );
-    }
-
     private void SpawnNextBox()
     {
-        // Current เก่าจบแล้ว
-        // ตอนนี้ค่อยเลื่อน Queue
         boxQueue.AdvanceQueue();
 
         SpawnCurrentBox();
@@ -218,7 +293,7 @@ public class BoxSpawner : MonoBehaviour
             itemPos = currentBox.transform.position;
         }
 
-            Vector3 aimAssistPos = itemPos + new Vector3(0, -2, 0);
+        Vector3 aimAssistPos = itemPos + new Vector3(0, -3, 0);
         aimAssist.transform.position = aimAssistPos;
 
     }

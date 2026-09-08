@@ -24,6 +24,7 @@ public class Bigger : MonoBehaviour
 
     private void Start()
     {
+
         InvokeRepeating(
             nameof(GrowBoxes),
             biggerTime,
@@ -78,7 +79,9 @@ public class Bigger : MonoBehaviour
                     explosionForce,
                     explosionUpForce
                 );
+                GameManager.Instance.AddScore(25);
             }
+
         }
     }
 
