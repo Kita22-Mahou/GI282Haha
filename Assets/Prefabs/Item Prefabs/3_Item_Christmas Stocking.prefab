@@ -119,6 +119,9 @@ MonoBehaviour:
   spawnSize: 0
   normalSize: 0.75
   plusNumber: 0.05
+  popFX1: {fileID: 6089992406804133634, guid: 4da1d8d0f928c914884cf4a814ed50ca, type: 3}
+  popFX2: {fileID: 1591559501662313157, guid: 6d178fbfda8027246afe40e2e1ef09e0, type: 3}
+  popFX3: {fileID: 50283832575940429, guid: c73bbb77b5d45b640a42dea4ec23f4cf, type: 3}
 --- !u!50 &5989281396273653274
 Rigidbody2D:
   serializedVersion: 5

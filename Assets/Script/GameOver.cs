@@ -16,7 +16,7 @@ public class GameOver : MonoBehaviour
 
     public TextMeshProUGUI overloadText;
 
-    public Slider Slider;
+    public Scrollbar overloadBar;
 
     private void Start()
     {
@@ -39,12 +39,12 @@ public class GameOver : MonoBehaviour
 
             if (time >= 3)
             {
-                Slider.value += 0.175f;
+                overloadBar.value += 0.00175f;
                 overloadText.enabled = true;
             }
             else
             {
-                Slider.value = 0;
+                overloadBar.value = 0;
                 overloadText.enabled = false;
             }
         }

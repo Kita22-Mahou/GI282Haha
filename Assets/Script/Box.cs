@@ -23,6 +23,9 @@ public class Box : MonoBehaviour
     [SerializeField] private float spawnSize = 0f;
     [SerializeField] private float normalSize;
     [SerializeField] private float plusNumber;
+    [SerializeField] private ParticleSystem popFX1;
+    [SerializeField] private ParticleSystem popFX2;
+    [SerializeField] private ParticleSystem popFX3;
 
     [Header("???")]
     private Rigidbody2D rb;
@@ -200,6 +203,10 @@ public class Box : MonoBehaviour
                 (Vector2)transform.position +
                 (Vector2)other.transform.position
             ) * 0.5f;
+
+        Instantiate(popFX1,mergePosition,Quaternion.identity); // spawn particle effect
+        Instantiate(popFX2, mergePosition, Quaternion.identity);
+        Instantiate(popFX3, mergePosition, Quaternion.identity);
 
         // ================================================
         // 1. ผลักของรอบตัวก่อน
