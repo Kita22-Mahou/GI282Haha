@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71e4d73addc44874285f64c505fd80bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bomb
-  explosionRadius: 1
+  explosionRadius: 0.6
   destroyDelay: 0.1
   spawnSize: 0
   normalSize: 0.5
