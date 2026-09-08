@@ -745,7 +745,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Space To Play
+  m_text: 'Click to play
 
 '
   m_isRightToLeft: 0

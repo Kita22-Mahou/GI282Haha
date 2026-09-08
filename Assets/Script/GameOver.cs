@@ -18,9 +18,12 @@ public class GameOver : MonoBehaviour
 
     public Scrollbar overloadBar;
 
+    public GameoverScreen gameoverScreen;
+
     private void Start()
     {
         overloadText.enabled = false;
+        gameoverScreen = FindAnyObjectByType<GameoverScreen>();
     }
 
     private void FixedUpdate()
@@ -34,7 +37,7 @@ public class GameOver : MonoBehaviour
             time += Time.deltaTime;
             if (time >= loseTime)
             {
-                SceneManager.LoadScene("Start Scene");
+                gameoverScreen.MakeGameOver(true);
             }
 
             if (time >= 3)
