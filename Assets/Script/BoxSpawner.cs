@@ -175,6 +175,8 @@ public class BoxSpawner : MonoBehaviour
 
     public void DropBox()
     {
+        audioManager.PlayDropSFX();
+
         if (currentBox == null || !canMove)
             return;
 
