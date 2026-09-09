@@ -10,6 +10,7 @@ public class GameOver : MonoBehaviour
 
     public float loseTime = 20;
     public float time = 0;
+    public float barPlusValue = 0;
 
     public Vector2 boxSize;
     public LayerMask itemLayer;
@@ -26,7 +27,7 @@ public class GameOver : MonoBehaviour
         gameoverScreen = FindAnyObjectByType<GameoverScreen>();
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         Collider2D[] items = Physics2D.OverlapBoxAll(transform.position, boxSize, 0f, itemLayer);
 
@@ -35,6 +36,7 @@ public class GameOver : MonoBehaviour
         if (isCollided)
         {
             time += Time.deltaTime;
+
             if (time >= loseTime)
             {
                 gameoverScreen.MakeGameOver(true);
@@ -42,19 +44,16 @@ public class GameOver : MonoBehaviour
                 Invoke(nameof(TimeStop),2);
             }
 
-            if (time >= 3)
+            if (time >= 5)
             {
-                overloadBar.value += 0.00175f;
+                overloadBar.value += barPlusValue;
                 overloadText.enabled = true;
-            }
-            else
-            {
-                overloadBar.value = 0;
-                overloadText.enabled = false;
             }
         }
         else
         {
+            overloadBar.value = 0;
+            overloadText.enabled = false;
             time = 0f;
         }
     }
