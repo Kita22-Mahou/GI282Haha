@@ -10,14 +10,14 @@ public class GameOver : MonoBehaviour
 
     public float loseTime = 20;
     public float time = 0;
-    public float barPlusValue = 0;
+    public float barDuration = 15f;
 
     public Vector2 boxSize;
     public LayerMask itemLayer;
 
     public TextMeshProUGUI overloadText;
 
-    public Scrollbar overloadBar;
+    public Slider overloadBar;
 
     public GameoverScreen gameoverScreen;
 
@@ -46,7 +46,7 @@ public class GameOver : MonoBehaviour
 
             if (time >= 5)
             {
-                overloadBar.value += barPlusValue;
+                overloadBar.value += Time.deltaTime / barDuration;
                 overloadText.enabled = true;
             }
         }

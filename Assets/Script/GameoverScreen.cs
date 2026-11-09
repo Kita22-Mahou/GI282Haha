@@ -14,7 +14,7 @@ public class GameoverScreen : MonoBehaviour
 
     void Update()
     {
-        if(anim.GetBool("isEnded") || anim.GetBool("isGameOver"))
+        if(anim.GetBool("isEnded") && anim.GetBool("isGameOver"))
         {
             if (Mouse.current.leftButton.wasPressedThisFrame)
             {
