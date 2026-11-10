@@ -104,7 +104,7 @@ public class BoxSpawner : MonoBehaviour
 
     private void CheckDrop()
     {
-        if (Mouse.current.leftButton.wasPressedThisFrame)
+        if (Mouse.current.leftButton.wasPressedThisFrame || Keyboard.current.spaceKey.wasPressedThisFrame)
         {
             DropBox();
         }
